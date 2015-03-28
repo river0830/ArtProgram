@@ -26,6 +26,6 @@ void find_max_commonfactor(unsigned int a, unsigned int b)
 void test_find_commfactor(void)
 {
     find_max_commonfactor(3, 7);
-    find_max_commonfactor(21, 105);
+    find_max_commonfactor(544, 119);
     find_max_commonfactor(124, 1024);
 }

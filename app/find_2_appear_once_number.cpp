@@ -20,7 +20,7 @@ void find_2_appear_once_number(const int *data, unsigned int len)
 
     //寻找xor_all中第一个不为0的bit, 可以将数组划分为2块
     //显然a和b在不同的块
-    const int xor_flag = xor_all & (-(unsigned int)xor_all);
+    const int xor_flag = xor_all & (~(unsigned int)xor_all + 1);
 
     int xor_a = 0;
     for(unsigned int i = 0; i < len; i++)

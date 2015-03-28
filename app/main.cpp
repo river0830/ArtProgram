@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "find_2_appear_once_number.h"
-#include "find_min_commonfactor.h"
+#include "find_max_commonfactor.h"
 
 using namespace std;
 
