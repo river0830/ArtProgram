@@ -21,5 +21,6 @@ SOURCES += ../app/main.cpp \
 
 HEADERS += ../app/app.h \
     ../app/find_2_appear_once_number.h \
-    ../app/find_max_commonfactor.h
+    ../app/find_max_commonfactor.h \
+    ../app/list.h
 
