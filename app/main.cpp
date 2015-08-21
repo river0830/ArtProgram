@@ -46,6 +46,27 @@ static void list_test(void)
     }
 }
 
+static void DeleteRepeatNum(void)
+{
+    static int array[] = {2, 3, 4, 4, 5, 6, 8, 8, 9};
+    int i, j;
+
+    cout << "DeleteRepeatNum e.g." << endl;
+
+    for(i = 0, j = 0; i < sizeof(array) / sizeof(int); i++)
+    {
+        if(array[i] == array[j]) continue;
+
+        j++;
+        if(i != j) swap(array[i], array[j]);
+    }
+
+    for(i = 0; i < sizeof(array) / sizeof(int); i++) cout << array[i] << " ";
+    cout << endl;
+
+    cout << endl;
+}
+
 int main()
 {
     cout << "The Art of Programming!" << endl;
@@ -53,6 +74,8 @@ int main()
     test_find_once_number();
     test_find_commfactor();
     list_test();
+
+    DeleteRepeatNum();
 
     return 0;
 }
