@@ -4,6 +4,8 @@
 #include "find_max_commonfactor.h"
 #include "list.h"
 
+#include "interview.h"
+
 using namespace std;
 
 typedef struct _ll
@@ -61,7 +63,7 @@ static void DeleteRepeatNum(void)
         if(i != j) swap(array[i], array[j]);
     }
 
-    for(i = 0; i < sizeof(array) / sizeof(int); i++) cout << array[i] << " ";
+    for(i = 0; i < j+1; i++) cout << array[i] << " ";
     cout << endl;
 
     cout << endl;
@@ -76,6 +78,8 @@ int main()
     list_test();
 
     DeleteRepeatNum();
+
+    test_interview();
 
     return 0;
 }

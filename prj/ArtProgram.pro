@@ -17,10 +17,12 @@ INCLUDEPATH =           \
 
 SOURCES += ../app/main.cpp \
     ../app/find_2_appear_once_number.cpp \
-    ../app/find_max_commonfactor.cpp
+    ../app/find_max_commonfactor.cpp \
+    ../app/interview.cpp
 
 HEADERS += ../app/app.h \
     ../app/find_2_appear_once_number.h \
     ../app/find_max_commonfactor.h \
-    ../app/list.h
+    ../app/list.h \
+    ../app/interview.h
 
