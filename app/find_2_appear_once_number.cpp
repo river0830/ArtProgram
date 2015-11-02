@@ -41,6 +41,8 @@ void test_find_once_number(void)
 {
     const int data[8] = {2, 3, 4, 2, 4, 5, 2, 3};
 
+    cout << "**********************************" << endl;
     find_2_appear_once_number(data, 8);
+    cout << "**********************************" << endl;
 }
 

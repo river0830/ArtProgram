@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 #include "find_2_appear_once_number.h"
 #include "find_max_commonfactor.h"
@@ -21,6 +22,9 @@ static void list_test(void)
     ll *pp = NULL;
 
     ll t1, t2, t3;
+
+    cout << "**********************************" << endl;
+    cout << "hash list teset" << endl;
 
     t1.id = 0x31;
     t2.id = 0x32;
@@ -46,27 +50,8 @@ static void list_test(void)
         pp = slist_entry(pList, ll, node);
         cout << "id = " << pp->id << endl;
     }
-}
 
-static void DeleteRepeatNum(void)
-{
-    static int array[] = {2, 3, 4, 4, 5, 6, 8, 8, 9};
-    int i, j;
-
-    cout << "DeleteRepeatNum e.g." << endl;
-
-    for(i = 0, j = 0; i < sizeof(array) / sizeof(int); i++)
-    {
-        if(array[i] == array[j]) continue;
-
-        j++;
-        if(i != j) swap(array[i], array[j]);
-    }
-
-    for(i = 0; i < j+1; i++) cout << array[i] << " ";
-    cout << endl;
-
-    cout << endl;
+    cout << "**********************************" << endl;
 }
 
 int main()
@@ -76,9 +61,6 @@ int main()
     test_find_once_number();
     test_find_commfactor();
     list_test();
-
-    DeleteRepeatNum();
-
     test_interview();
 
     return 0;
