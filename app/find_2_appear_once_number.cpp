@@ -41,8 +41,10 @@ void test_find_once_number(void)
 {
     const int data[8] = {2, 3, 4, 2, 4, 5, 2, 3};
 
-    cout << "**********************************" << endl;
+    cout << "****************test find 2 once number start******************" << endl;
+
     find_2_appear_once_number(data, 8);
-    cout << "**********************************" << endl;
+
+    cout << "****************test find 2 once number end******************" << endl;
 }
 

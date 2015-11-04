@@ -25,12 +25,11 @@ void find_max_commonfactor(unsigned int a, unsigned int b)
 
 void test_find_commfactor(void)
 {
-    cout << "**********************************" << endl;
-    cout << "test gcd algorim start" << endl;
+    cout << "****************test gcd start******************" << endl;
 
     find_max_commonfactor(3, 7);
     find_max_commonfactor(544, 119);
     find_max_commonfactor(124, 1024);
 
-    cout << "**********************************" << endl;
+    cout << "****************test gcd start******************" << endl;
 }

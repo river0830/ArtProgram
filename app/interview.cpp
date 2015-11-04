@@ -21,7 +21,7 @@ using namespace std;
 //华为等式变换
 //1 2 3 4 5 6 7 8 9 = x
 //'0' == '+', '1' == "-", '2' == " "
-static void get_3symbol(int num, string &str)
+void cTestInterView::get_3symbol(int num, string &str)
 {
     int r = 0;
 
@@ -40,12 +40,13 @@ static void get_3symbol(int num, string &str)
     for(int i = 0; i < m; i++) str += '0';
 }
 
-static void equation_transfer(int number)
+void cTestInterView::equation_transfer(int number)
 {
     const int n3power8 = 6561; //3 ^ 8
     string symbol;
     int transfer_count = 0;
 
+    show_tips();
     cout << "equation_transfer: " << number << endl;
 
     for(int i = 0; i < n3power8; i++)
@@ -91,10 +92,12 @@ static void equation_transfer(int number)
 
 //=============================================================================
 //DeleteRepeatNum
-static void DeleteRepeatNum(void)
+void cTestInterView::delete_repeat_num(void)
 {
     static int array[] = {2, 3, 8, 4, 5, 5, 9, 8, 9};
     int i, j;
+
+    show_tips();
 
     cout << "DeleteRepeatNum e.g." << endl;
 
@@ -112,11 +115,13 @@ static void DeleteRepeatNum(void)
     cout << endl;
 }
 
-static void DeleteAppointChar(char *str, char c)
+void cTestInterView::delete_appoint_character(char *str, char c)
 {
+    char *pre, *end;
+
     if(NULL == str) return;
 
-    char *pre, *end;
+    show_tips();
 
     pre = end = str;
     while(*pre)
@@ -136,22 +141,7 @@ static void DeleteAppointChar(char *str, char c)
     cout << "delete char '" << c << "' count:" << pre - end << endl;
 }
 
-//=============================================================================
-//test routine
-void test_interview()
+void cTestInterView::show_tips()
 {
-    cout << "**********************************" << endl;
-    cout << "test interview start" << endl;
-
-    equation_transfer(5);
-    cout << "==================================" << endl;
-    DeleteRepeatNum();
-
-    cout << "==================================" << endl;
-    char sRep[] = {" 89 789aw dr t"};
-
-    DeleteAppointChar(sRep, '8');
-
-    cout << "test interview end" << endl;
-    cout << "**********************************" << endl;
+    cout << "---.---.---.---.---.---.---" << endl;
 }
