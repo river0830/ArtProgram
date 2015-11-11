@@ -6,6 +6,7 @@
 #include "list.h"
 
 #include "interview.h"
+#include "base_function.h"
 
 using namespace std;
 
@@ -69,6 +70,10 @@ static void test_interview()
 
     view.delete_appoint_character(sRep, '8');
 
+    string dst = "aaabc", src = "aab";
+
+    cout << "end " << view.bruteforce_str(dst, src) << endl;
+
     cout << "****************test interview end******************" << endl;
 }
 
@@ -81,6 +86,8 @@ int main()
     test_find_commfactor();
     list_test();
     test_interview();
+
+    cout << "str_len: " << str_len("NULL") << endl;
 
     return 0;
 }

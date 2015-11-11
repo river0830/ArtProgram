@@ -4,6 +4,10 @@
 //二叉树
 //http://blog.csdn.net/zhaojinjia/article/details/9314989
 //http://blog.chinaunix.net/uid-26548237-id-3476141.html
+//art program blog
+//http://blog.csdn.net/zlei2013141/article/details/7007389
+//http://www.cppblog.com/ant/archive/2007/10/12/32886.html
+//http://kb.cnblogs.com/page/176818/
 //=============================================================================
 
 #include <iostream>
@@ -16,6 +20,37 @@
 #include "interview.h"
 
 using namespace std;
+
+//=============================================================================
+//KMP 串匹配
+int cTestInterView::bruteforce_str(string &dst, string &src)
+{
+    size_t len_dst = dst.length(), len_src = src.length();
+
+    show_tips();
+    cout << "brute force search: " << endl;
+
+    if(len_dst < 1 || len_src < 1 || len_src > len_dst) return -1;
+
+    for(int i = 0; i <= len_dst - len_src; i++)
+    {
+        for(int j = 0; j < len_src; j++)
+        {
+            if(dst[i + j] != src[j]) break;
+        }
+
+        if(j == len_src) return i;
+    }
+
+    return -1;
+}
+
+int cTestInterView::kmp_str(string &dst, string &src)
+{
+    if(dst.length() < 1 || src.length() < 1) return -1;
+
+    return 0;
+}
 
 //=============================================================================
 //华为等式变换
