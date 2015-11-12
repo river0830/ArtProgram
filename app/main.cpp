@@ -74,6 +74,8 @@ static void test_interview()
 
     cout << "end " << view.bruteforce_str(dst, src) << endl;
 
+    cout << "end " << view.bruteforce1_str(dst, src) << endl;
+
     cout << "****************test interview end******************" << endl;
 }
 

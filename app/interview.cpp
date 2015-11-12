@@ -32,9 +32,12 @@ int cTestInterView::bruteforce_str(string &dst, string &src)
 
     if(len_dst < 1 || len_src < 1 || len_src > len_dst) return -1;
 
-    for(int i = 0; i <= len_dst - len_src; i++)
+
+    for(size_t i = 0; i <= len_dst - len_src; i++)
     {
-        for(int j = 0; j < len_src; j++)
+        size_t j = 0;
+
+        for(j = 0; j < len_src; j++)
         {
             if(dst[i + j] != src[j]) break;
         }
@@ -44,6 +47,34 @@ int cTestInterView::bruteforce_str(string &dst, string &src)
 
     return -1;
 }
+
+int cTestInterView::bruteforce1_str(string &dst, string &src)
+{
+    show_tips();
+    cout << "brute force1 search: " << endl;
+
+    if(dst[0] == 0 || src[0] == 0) return -1;
+
+    int i = 0, j = 0;
+
+    while(dst[i+j] && src[j])
+    {
+        if(dst[i+j] == src[j])
+        {
+            j++;
+        }
+        else
+        {
+            j = 0;
+            i++;
+        }
+    }
+
+    if(src[j] == 0) return i;
+
+    return -1;
+}
+
 
 int cTestInterView::kmp_str(string &dst, string &src)
 {

@@ -11,6 +11,7 @@ public:
     void delete_appoint_character(char *str, char c);
 
     int bruteforce_str(std::string &dst, std::string &src);
+    int bruteforce1_str(std::string &dst, std::string &src);
     int kmp_str(std::string &dst, std::string &src);
 
 private:
