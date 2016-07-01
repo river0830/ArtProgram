@@ -15,6 +15,8 @@ public:
     int bruteforce1_str(const char *dst, const char *src);
     int kmp_str(std::string &dst, std::string &src);
 
+    void fast_mod(unsigned int x, unsigned int n, unsigned int m);
+
 private:
     void kmp_get_next(const std::string &str, std::vector<int> &next);
 

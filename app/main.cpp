@@ -74,7 +74,11 @@ static void test_interview()
 
     cout << "end " << view.bruteforce_str(dst, src) << endl;
 
-    cout << "end " << view.bruteforce1_str(dst, src) << endl;
+    cout << "end " << view.bruteforce1_str(dst.c_str(), src.c_str()) << endl;
+
+    view.fast_mod(5, 0, 5);
+    view.fast_mod(0, 2, 5);
+    view.fast_mod(12996, 227, 37909);
 
     cout << "****************test interview end******************" << endl;
 }

@@ -209,6 +209,27 @@ void cTestInterView::delete_appoint_character(char *str, char c)
     cout << "delete char '" << c << "' count:" << pre - end << endl;
 }
 
+void cTestInterView::fast_mod(unsigned int x, unsigned int n, unsigned int m)
+{
+    show_tips();
+
+    cout << "fast mod by 2^ " << endl;
+
+    int a = 1, b = x, t = n;
+    while(1)
+    {
+        if(n == 0) break;
+        if(n & 0x01)
+        {
+            a = a * b % m;
+        }
+        b = b * b % m;
+        n >>= 1;
+    }
+
+    cout << x << "^" << t << " mod " << m << " is " << a << endl;
+}
+
 void cTestInterView::show_tips()
 {
     cout << "---.---.---.---.---.---.---" << endl;
