@@ -7,6 +7,7 @@
 
 #include "interview.h"
 #include "base_function.h"
+#include "ring_queue.h"
 
 using namespace std;
 
@@ -70,19 +71,152 @@ static void test_interview()
 
     view.delete_appoint_character(sRep, '8');
 
-    string dst = "aaabc", src = "aab";
+    string dst = "aaababaabcabac", src = "ababaaababaa"; //"abaabcaba";
 
     cout << "end " << view.bruteforce_str(dst, src) << endl;
 
     cout << "end " << view.bruteforce1_str(dst.c_str(), src.c_str()) << endl;
 
+    cout << "end " << view.kmp_str(dst, src) << endl;
+
     view.fast_mod(5, 0, 5);
     view.fast_mod(0, 2, 5);
+    view.fast_mod(2, 1000000000, 77);
     view.fast_mod(12996, 227, 37909);
 
     cout << "****************test interview end******************" << endl;
 }
 
+static unsigned int upper_power_of_2(unsigned int val)
+{
+    cout << "****************test upper_power_of_2 s******************" << endl;
+
+    cout << "firset move val: " << val << endl;
+
+    unsigned int v = val;
+
+    v--;
+    v |= v >> 1;
+    v |= v >> 2;
+    v |= v >> 4;
+    v |= v >> 8;
+    v |= v >> 16;
+    v++;
+
+    cout << "firset move v: " << v << endl;
+
+    #define jimi_b2(x)              (        (x) | (        (x) >>  1))
+    #define jimi_b4(x)              ( jimi_b2(x) | ( jimi_b2(x) >>  2))
+    #define jimi_b8(x)              ( jimi_b4(x) | ( jimi_b4(x) >>  4))
+    #define jimi_b16(x)             ( jimi_b8(x) | ( jimi_b8(x) >>  8))
+    #define jimi_b32(x)             (jimi_b16(x) | (jimi_b16(x) >> 16))
+    #define jimi_b64(x)             (jimi_b32(x) | (jimi_b32(x) >> 32))
+
+    cout << "second macro move val: " << val << endl;
+
+    unsigned int v1 = val;
+
+    v1 = (jimi_b32(v1 - 1) + 1);
+
+    cout << "second macro move v1: " << v1 << endl;
+
+    cout << "third move val: " << val << endl;
+
+    unsigned int v2 = 2;
+
+    while(v2 < val) v2 <<= 1;
+
+    cout << "third move v2: " << v2 << endl;
+
+    cout << "fourth move val: " << val << endl;
+
+    unsigned int v3 = val >= 2 ? val : 2;
+
+    if(v3 & (v3 - 1))
+    {
+        unsigned int maxulong = (unsigned int)((unsigned int)~0);
+        unsigned int andv = ~(maxulong & (maxulong>>1));
+
+        while((andv & v3) == 0) andv = andv>>1;
+
+        andv <<= 1;
+
+        cout << "fourth move v3: " << andv << endl;
+    }
+
+    cout << "****************test upper_power_of_2 e******************" << endl;
+
+    return v2;
+}
+
+void test_ringqueue(void)
+{
+    cout << "****************test RingQueue s******************" << endl;
+
+    RingQueue tq;
+    struct tt
+    {
+        int id;
+        int cc;
+        short kk;
+        char  ss;
+    };
+
+    tq.data_size  = sizeof(struct tt);
+    tq.queue_size = 10;
+    tq.buf        = new unsigned char[10 * sizeof(struct tt)];
+
+    tq.front = tq.size = 0;
+    RingQueue_Init(&tq);
+
+    int i = 0;
+    struct tt tk;
+    for(; i < 11; i++)
+    {
+        tk.id = i;
+        RingQueue_EnQueue(tq, &tk);
+    }
+
+    cout << "RingQueue size " << RingQueue_Get_Size(tq) << endl;
+
+    struct tt *ptk;
+    for(i = 1; i <= 10; i++)
+    {
+        ptk = (struct tt *)RingQueue_Get_Index(tq, i);
+        if(ptk)
+            cout << "RingQueue item " << i << " id " << ptk->id << endl;
+    }
+
+    cout << "RingQueue remove head" << endl;
+    RingQueue_Remove_Head(tq);
+    RingQueue_Remove_Head(tq);
+
+    cout << "RingQueue size " << RingQueue_Get_Size(tq) << endl;
+
+    for(i = 1; i <= 10; i++)
+    {
+        ptk = (struct tt *)RingQueue_Get_Index(tq, i);
+        if(ptk)
+            cout << "RingQueue item " << i << " id " << ptk->id << endl;
+    }
+
+    tk.id = 100;
+    RingQueue_EnQueue(tq, &tk);
+    tk.id = 101;
+    RingQueue_EnQueue(tq, &tk);
+
+    for(i = 1; i <= 10; i++)
+    {
+        ptk = (struct tt *)RingQueue_Get_Head(tq);
+        if(ptk)
+            cout << "RingQueue item " << i << " id " << ptk->id << endl;
+
+        RingQueue_Remove_Head(tq);
+    }
+
+    cout << "****************test RingQueue e******************" << endl;
+
+}
 
 int main()
 {
@@ -92,6 +226,12 @@ int main()
     test_find_commfactor();
     list_test();
     test_interview();
+
+    upper_power_of_2(4);
+    upper_power_of_2(513);
+    upper_power_of_2(1782);
+
+    test_ringqueue();
 
     cout << "str_len: " << str_len("NULL") << endl;
 

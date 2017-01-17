@@ -75,12 +75,36 @@ int cTestInterView::bruteforce1_str(const char *dst, const char *src)
 
 void cTestInterView::kmp_get_next(const string &src, vector<int> &next)
 {
+    int len = src.size();
+    int index;
 
+    next[0] = -1;
+    for(int i = 1; i < len; ++i)
+    {
+        index = next[i - 1];
+        while(index >= 0 && src[i] != src[index+1])
+            index = next[index];
+        if(src[i] == src[index+1])
+            next[i] = index + 1;
+        else
+            next[i] = -1;
+    }
+
+    cout << "kmp next array:" << endl;
+    for(vector<int>::iterator iter = next.begin(); iter != next.end(); ++iter)
+        cout << *iter << " ";
+    cout << endl;
 }
 
 int cTestInterView::kmp_str(string &dst, string &src)
 {
-    if(dst.length() < 1 || src.length() < 1) return -1;
+    if(dst.length() < src.length()) return -1;
+
+    show_tips();
+    cout << "kmp search: " << endl;
+
+    vector<int> kmp_next(src.length());
+    kmp_get_next(src, kmp_next);
 
     return 0;
 }

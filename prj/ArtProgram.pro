@@ -19,12 +19,14 @@ SOURCES += ../app/main.cpp \
     ../app/find_2_appear_once_number.cpp \
     ../app/find_max_commonfactor.cpp \
     ../app/interview.cpp \
-    ../app/base_function.cpp
+    ../app/base_function.cpp \
+    ../app/ring_queue.c
 
 HEADERS += ../app/app.h \
     ../app/find_2_appear_once_number.h \
     ../app/find_max_commonfactor.h \
     ../app/list.h \
     ../app/interview.h \
-    ../app/base_function.h
+    ../app/base_function.h \
+    ../app/ring_queue.h
 
