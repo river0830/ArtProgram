@@ -71,11 +71,11 @@ static void test_interview()
 
     view.delete_appoint_character(sRep, '8');
 
-    string dst = "aaababaabcabac", src = "ababaaababaa"; //"abaabcaba";
+    string dst = "src.c_str()c_str()c_str()..c_str()", src = "ababaaababaa"; //"abaabcaba";
 
     cout << "end " << view.bruteforce_str(dst, src) << endl;
 
-    cout << "end " << view.bruteforce1_str(dst.c_str(), src.c_str()) << endl;
+    cout << "end " << view.bruteforce1_str("src.c_str()c_str()c_str()..c_str()", "c_str()") << endl;
 
     cout << "end " << view.kmp_str(dst, src) << endl;
 

@@ -32,20 +32,22 @@ int cTestInterView::bruteforce_str(string &dst, string &src)
 
     if(len_dst < 1 || len_src < 1 || len_src > len_dst) return -1;
 
-
-    for(size_t i = 0; i <= len_dst - len_src; i++)
+    size_t z = 0;
+    for(size_t i = 0, j = 0; i <= len_dst - len_src; i++)
     {
-        size_t j = 0;
-
         for(j = 0; j < len_src; j++)
         {
             if(dst[i + j] != src[j]) break;
         }
 
-        if(j == len_src) return i;
+        if(j == len_src)
+        {
+            cout << "brute force pattern is " << i << endl;
+            z++;
+        }
     }
 
-    return -1;
+    return z;
 }
 
 int cTestInterView::bruteforce1_str(const char *dst, const char *src)
@@ -55,9 +57,14 @@ int cTestInterView::bruteforce1_str(const char *dst, const char *src)
 
     if(dst == NULL || src == NULL) return -1;
 
-    int i = 0, j = 0;
+    int i = 0, j = 0, z;
 
-    while(dst[i+j] && src[j])
+    while(dst[i++]);
+    while(src[j++]);
+    if(i < j) return -1;
+
+    i = j = z = 0;
+    while(dst[i+j])
     {
         if(dst[i+j] == src[j])
         {
@@ -68,21 +75,43 @@ int cTestInterView::bruteforce1_str(const char *dst, const char *src)
             j = 0;
             i++;
         }
+
+        if(src[j] == 0)
+        {
+            z++;
+            cout << "brute force1 pattern is " << i++ << endl;
+            j = 0;
+        }
     }
 
-    return (src[j] == 0 ? i : -1);
+    return (z > 0 ? z : -1);
+}
+
+static void buildNext(const char *pattern, int length, unsigned int* next)
+{
+    int j = 0, k = -1;
+    next[0] = -1;
+    while(j < length - 1)
+    {
+        if(k == -1 || pattern[j] == pattern[k])
+        {
+            next[++j] = ++k;
+        }
+        else
+            k = next[k];
+    }
 }
 
 void cTestInterView::kmp_get_next(const string &src, vector<int> &next)
 {
-    int len = src.size();
+    int len = src.length();
     int index;
 
     next[0] = -1;
-    for(int i = 1; i < len; ++i)
+    for(int i = 1; i < len; i++)
     {
         index = next[i - 1];
-        while(index >= 0 && src[i] != src[index+1])
+        while(src[i] != src[index+1] && index >= 0)
             index = next[index];
         if(src[i] == src[index+1])
             next[i] = index + 1;
@@ -93,6 +122,13 @@ void cTestInterView::kmp_get_next(const string &src, vector<int> &next)
     cout << "kmp next array:" << endl;
     for(vector<int>::iterator iter = next.begin(); iter != next.end(); ++iter)
         cout << *iter << " ";
+    cout << endl;
+
+    cout << "kmp other next array:" << endl;
+    int next_t[256] = {0};
+    buildNext(src.c_str(), len, next_t);
+    for(int i = 0; i < len; i++)
+        cout << next_t[i] << " ";
     cout << endl;
 }
 
@@ -106,7 +142,26 @@ int cTestInterView::kmp_str(string &dst, string &src)
     vector<int> kmp_next(src.length());
     kmp_get_next(src, kmp_next);
 
-    return 0;
+    int d_len=0, s_len=0, count = 0;
+    while(d_len<dst.length() && s_len<src.length())
+    {
+        if(src[d_len] == dst[s_len])
+        {
+            d_len++;
+            s_len++;
+        }
+        else
+        {
+            if(d_len == 0)
+                s_len++;
+            else
+                d_len = kmp_next[d_len-1] + 1;
+        }
+
+        count++;
+    }
+    cout << "kmp str count " << count << endl;
+    return (s_len == src.length()) ? d_len - src.length(): -1;
 }
 
 //=============================================================================
@@ -239,7 +294,7 @@ void cTestInterView::fast_mod(unsigned int x, unsigned int n, unsigned int m)
 
     cout << "fast mod by 2^ " << endl;
 
-    int a = 1, b = x, t = n;
+    int a = 1, b = x, t = n, count = 0;
     while(1)
     {
         if(n == 0) break;
@@ -249,8 +304,9 @@ void cTestInterView::fast_mod(unsigned int x, unsigned int n, unsigned int m)
         }
         b = b * b % m;
         n >>= 1;
+        count++;
     }
-
+    cout << "fast mod count " << count << endl;
     cout << x << "^" << t << " mod " << m << " is " << a << endl;
 }
 
