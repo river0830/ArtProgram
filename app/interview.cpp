@@ -32,7 +32,7 @@ int cTestInterView::bruteforce_str(string &dst, string &src)
 
     if(len_dst < 1 || len_src < 1 || len_src > len_dst) return -1;
 
-    size_t z = 0;
+    size_t count = 0;
     for(size_t i = 0, j = 0; i <= len_dst - len_src; i++)
     {
         for(j = 0; j < len_src; j++)
@@ -40,14 +40,16 @@ int cTestInterView::bruteforce_str(string &dst, string &src)
             if(dst[i + j] != src[j]) break;
         }
 
+        count++;
         if(j == len_src)
         {
             cout << "brute force pattern is " << i << endl;
-            z++;
+            break;
         }
     }
+    cout << "brute force count is " << count * j << endl;
 
-    return z;
+    return i;
 }
 
 int cTestInterView::bruteforce1_str(const char *dst, const char *src)
@@ -89,79 +91,67 @@ int cTestInterView::bruteforce1_str(const char *dst, const char *src)
 
 static void buildNext(const char *pattern, int length, unsigned int* next)
 {
+
+}
+
+void cTestInterView::kmp_get_next(const string &src, vector<int> &next)
+{
+    int len = src.length();
+
     int j = 0, k = -1;
     next[0] = -1;
-    while(j < length - 1)
+    while(j < len - 1)
     {
-        if(k == -1 || pattern[j] == pattern[k])
+        if(k == -1 || src[j] == src[k])
         {
             next[++j] = ++k;
         }
         else
             k = next[k];
     }
-}
-
-void cTestInterView::kmp_get_next(const string &src, vector<int> &next)
-{
-    int len = src.length();
-    int index;
-
-    next[0] = -1;
-    for(int i = 1; i < len; i++)
-    {
-        index = next[i - 1];
-        while(src[i] != src[index+1] && index >= 0)
-            index = next[index];
-        if(src[i] == src[index+1])
-            next[i] = index + 1;
-        else
-            next[i] = -1;
-    }
 
     cout << "kmp next array:" << endl;
     for(vector<int>::iterator iter = next.begin(); iter != next.end(); ++iter)
         cout << *iter << " ";
     cout << endl;
-
-    cout << "kmp other next array:" << endl;
-    int next_t[256] = {0};
-    buildNext(src.c_str(), len, next_t);
-    for(int i = 0; i < len; i++)
-        cout << next_t[i] << " ";
-    cout << endl;
 }
 
 int cTestInterView::kmp_str(string &dst, string &src)
 {
-    if(dst.length() < src.length()) return -1;
+    int dlen = dst.length(), slen = src.length();
+
+    if(dlen < slen) return -1;
 
     show_tips();
     cout << "kmp search: " << endl;
 
-    vector<int> kmp_next(src.length());
+    vector<int> kmp_next(slen);
     kmp_get_next(src, kmp_next);
 
     int d_len=0, s_len=0, count = 0;
-    while(d_len<dst.length() && s_len<src.length())
+    while(d_len < dlen && s_len < slen)
     {
-        if(src[d_len] == dst[s_len])
+        if(s_len == -1 || src[s_len] == dst[d_len])
         {
             d_len++;
             s_len++;
         }
         else
         {
-            if(d_len == 0)
-                s_len++;
-            else
-                d_len = kmp_next[d_len-1] + 1;
+            s_len = kmp_next[s_len];
         }
 
         count++;
     }
-    cout << "kmp str count " << count << endl;
-    return (s_len == src.length()) ? d_len - src.length(): -1;
+
+    if(s_len == slen)
+    {
+        cout << "kmp pattern is " << d_len - s_len << endl;
+    }
+
+    cout << "kmp count " << count << endl;
+
+    return d_len - s_len;
 }
 
 //=============================================================================
