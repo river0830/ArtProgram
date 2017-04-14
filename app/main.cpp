@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <string.h>
 
 #include "find_2_appear_once_number.h"
 #include "find_max_commonfactor.h"
@@ -79,6 +80,44 @@ static void test_interview()
     cout << "****************test interview end******************" << endl;
 }
 
+class Solution {
+public:
+    void replaceSpace(char *str,int length) {
+        if(NULL == str || length == 0)
+            return;
+
+        int len = 0;
+        int n = 0;
+        while(str[len]) {
+            if(str[len] == ' ')
+                n++;
+            len++;
+        }
+
+        //空间不够或者不需要替换,退出
+        if(n == 0 || len + n*2 > length) return;
+
+        char *back  = str + len;
+        char *nback = str + len + n*2;
+
+        while(back != str) {
+            if(*back == ' ') {
+                *nback--  = '0';
+                *nback--  = '2';
+                *nback--  = '%';
+            }
+            else {
+                *nback-- = *back;
+            }
+            back--;
+        }
+        if(*back == ' ') {
+            *nback--  = '0';
+            *nback--  = '2';
+            *nback--  = '%';
+        }
+    }
+};
 
 int main()
 {
