@@ -11,6 +11,8 @@
 #include "ring_queue.h"
 #include "dp_bag.h"
 
+#include "dt3106_ini.h"
+
 using namespace std;
 
 typedef struct _ll
@@ -89,7 +91,6 @@ static void test_interview()
     cout << "****************test interview end******************" << endl;
 }
 
-<<<<<<< HEAD
 class Solution {
 public:
     void replaceSpace(char *str,int length) {
@@ -128,7 +129,7 @@ public:
         }
     }
 };
-=======
+
 static unsigned int upper_power_of_2(unsigned int val)
 {
     cout << "****************test upper_power_of_2 s******************" << endl;
@@ -259,7 +260,7 @@ void test_ringqueue(void)
     cout << "****************test RingQueue e******************" << endl;
 
 }
->>>>>>> remotes/origin/river
+
 
 int main()
 {
@@ -274,10 +275,14 @@ int main()
     upper_power_of_2(513);
     upper_power_of_2(1782);
 
-    test_ringqueue();
-    dp_bag_test();
+    //test_ringqueue();
+    //dp_bag_test();
 
     cout << "str_len: " << str_len("NULL") << endl;
+
+    CIniDt3106 inifile;
+
+    inifile.test();
 
     //
     // Hello World server in C++

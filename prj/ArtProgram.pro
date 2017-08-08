@@ -30,7 +30,9 @@ SOURCES += ../app/main.cpp \
     ../app/interview.cpp \
     ../app/base_function.cpp \
     ../app/ring_queue.c \
-    ../app/dp_bag.cpp
+    ../app/dp_bag.cpp \
+    ../app/dt3106_ini.cpp \
+    ../app/iniControl.cpp
 
 HEADERS += ../app/app.h \
     ../app/find_2_appear_once_number.h \
@@ -39,5 +41,7 @@ HEADERS += ../app/app.h \
     ../app/interview.h \
     ../app/base_function.h \
     ../app/ring_queue.h \
-    ../app/dp_bag.h
+    ../app/dp_bag.h \
+    ../app/dt3106_ini.h \
+    ../app/iniControl.h
 
