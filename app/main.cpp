@@ -12,6 +12,7 @@
 #include "dp_bag.h"
 
 #include "dt3106_ini.h"
+#include "atomict1.h"
 
 using namespace std;
 
@@ -314,6 +315,10 @@ int main()
         socket.send (reply);
     }
 #endif
+
+    atomicT1 at;
+
+    at.spin_mutex_test();
 
     return 0;
 }

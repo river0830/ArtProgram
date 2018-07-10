@@ -32,7 +32,8 @@ SOURCES += ../app/main.cpp \
     ../app/ring_queue.c \
     ../app/dp_bag.cpp \
     ../app/dt3106_ini.cpp \
-    ../app/iniControl.cpp
+    ../app/iniControl.cpp \
+    ../app/atomict1.cpp
 
 HEADERS += ../app/app.h \
     ../app/find_2_appear_once_number.h \
@@ -43,5 +44,6 @@ HEADERS += ../app/app.h \
     ../app/ring_queue.h \
     ../app/dp_bag.h \
     ../app/dt3106_ini.h \
-    ../app/iniControl.h
+    ../app/iniControl.h \
+    ../app/atomict1.h
 

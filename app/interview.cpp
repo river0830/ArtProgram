@@ -33,7 +33,8 @@ int cTestInterView::bruteforce_str(string &dst, string &src)
     if(len_dst < 1 || len_src < 1 || len_src > len_dst) return -1;
 
     size_t count = 0;
-    for(size_t i = 0, j = 0; i <= len_dst - len_src; i++)
+    size_t i = 0, j = 0;
+    for(; i <= len_dst - len_src; i++)
     {
         for(j = 0; j < len_src; j++)
         {
