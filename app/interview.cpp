@@ -16,11 +16,13 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <map>
+#include <hash_map>
 
 #include "interview.h"
 
 using namespace std;
-
+using namespace __gnu_cxx;
 //=============================================================================
 //KMP ¥Æ∆•≈‰
 int cTestInterView::bruteforce_str(string &dst, string &src)
@@ -299,6 +301,26 @@ void cTestInterView::fast_mod(unsigned int x, unsigned int n, unsigned int m)
     }
     cout << "fast mod count " << count << endl;
     cout << x << "^" << t << " mod " << m << " is " << a << endl;
+}
+
+void cTestInterView::twoSums(vector<int> &dst, int target)
+{
+    show_tips();
+
+    cout << "towSums" << endl;
+
+    hash_map<int,int> tmp;
+
+    for(int i = 0; i < dst.size(); i++)
+    {
+        int value = target - dst[i];
+        if(tmp.find(value) != tmp.end()) {
+            cout << "hash_map -> " << endl;
+            cout << tmp[value] << ":" << i << " is find" << endl;
+            break;
+        }
+        tmp[dst[i]] = i;
+    }
 }
 
 void cTestInterView::show_tips()

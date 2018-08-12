@@ -89,6 +89,11 @@ static void test_interview()
     view.fast_mod(2, 1000000000, 77);
     view.fast_mod(12996, 227, 37909);
 
+    vector<int> ss = {0, 4, 3, 0, -3, 2};
+    view.twoSums(ss, 1);
+    view.twoSums(ss, 0);
+    view.twoSums(ss, 6);
+
     cout << "****************test interview end******************" << endl;
 }
 
