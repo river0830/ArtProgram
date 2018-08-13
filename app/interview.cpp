@@ -309,17 +309,37 @@ void cTestInterView::twoSums(vector<int> &dst, int target)
 
     cout << "towSums" << endl;
 
+    cout << "dst vector: ";
+    for_each(dst.cbegin(), dst.cend(), [](const int& val){cout << val << " ";});
+    cout << endl;
+    for(auto val:dst) cout << val << " ";
+    cout << endl;
+
     hash_map<int,int> tmp;
 
-    for(int i = 0; i < dst.size(); i++)
+    size_t len = dst.size();
+    for(size_t i = 0; i < len; i++)
     {
         int value = target - dst[i];
         if(tmp.find(value) != tmp.end()) {
-            cout << "hash_map -> " << endl;
+            cout << "hash_map -> " << target << endl;
             cout << tmp[value] << ":" << i << " is find" << endl;
             break;
         }
         tmp[dst[i]] = i;
+    }
+
+    map<int, int> tm;
+    for(size_t i = 0; i < len; i++)
+    {
+        int value = target - dst[i];
+        if(tm.find(value) != tm.end()) {
+            cout << "map -> " << target << endl;
+            cout << tmp[value] << ":" << i << " is find" << endl;
+            break;
+        }
+        //tm.insert(make_pair(dst[i], i));
+        tm[dst[i]] = i;
     }
 }
 

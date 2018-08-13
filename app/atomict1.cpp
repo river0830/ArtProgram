@@ -3,11 +3,6 @@
 int atomicT1::num = 0;
 spin_mutex atomicT1::m_mutex;
 
-atomicT1::atomicT1()
-{
-
-}
-
 void atomicT1::t_thread_proc()
 {
     for(int i = 0; i < 100000; ++i)
