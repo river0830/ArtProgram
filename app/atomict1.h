@@ -27,7 +27,9 @@ public:
 class atomicT1
 {
 public:
-    atomicT1();
+    atomicT1() = default;
+    atomicT1(const atomicT1&) = delete;
+    atomicT1& operator = (const atomicT1&) = delete;
 
 public:
     void spin_mutex_test();
