@@ -343,6 +343,37 @@ void cTestInterView::twoSums(vector<int> &dst, int target)
     }
 }
 
+void cTestInterView::iterEraseDeleteTest()
+{
+    show_tips();
+
+    vector<int> tmv  = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    map<int, int> tmp;
+
+    for(size_t i = 0; i < 10; i++)
+    {
+        tmp[i] = i + 2;
+    }
+
+    cout << "vector operation" << endl;
+    for_each(tmv.cbegin(), tmv.cend(), [](const int& val){cout << val << " ";});
+    cout << endl;
+
+    for(auto iter = tmv.begin(); iter != tmv.end();)
+    {
+        if(0 == *iter % 3)
+        {
+            tmv.erase(iter);
+        }
+        else
+        {
+            iter++;
+        }
+    }
+    for_each(tmv.cbegin(), tmv.cend(), [](const int& val){cout << val << " ";});
+    cout << endl;
+}
+
 void cTestInterView::show_tips()
 {
     cout << "---.---.---.---.---.---.---" << endl;

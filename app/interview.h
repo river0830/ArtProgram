@@ -17,6 +17,7 @@ public:
 
     void fast_mod(unsigned int x, unsigned int n, unsigned int m);
     void twoSums(std::vector<int> &dst, int target);
+    void iterEraseDeleteTest();
 
 private:
     void kmp_get_next(const std::string &str, std::vector<int> &next);

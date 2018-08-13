@@ -94,6 +94,8 @@ static void test_interview()
     view.twoSums(ss, 0);
     view.twoSums(ss, 6);
 
+    view.iterEraseDeleteTest();
+
     cout << "****************test interview end******************" << endl;
 }
 
