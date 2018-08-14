@@ -372,6 +372,26 @@ void cTestInterView::iterEraseDeleteTest()
     }
     for_each(tmv.cbegin(), tmv.cend(), [](const int& val){cout << val << " ";});
     cout << endl;
+
+    cout << "map operation" << endl;
+    //for_each(tmp.cbegin(), tmp.cend(), [](auto &v){cout << v.first << " ";}); //c++14
+    for_each(tmp.cbegin(), tmp.cend(), [](const pair<int, int> &v){cout << v.first << " ";});
+    cout << endl;
+
+    for(auto iter = tmp.begin(); iter != tmp.end();)
+    {
+        if(0 == iter->first % 3)
+        {
+            tmp.erase(iter++);
+        }
+        else
+        {
+            iter++;
+        }
+    }
+    for(auto &v : tmp)
+        cout << v.first << " ";
+    cout << endl;
 }
 
 void cTestInterView::show_tips()
