@@ -89,10 +89,12 @@ static void test_interview()
     view.fast_mod(2, 1000000000, 77);
     view.fast_mod(12996, 227, 37909);
 
-    vector<int> ss = {0, 4, 3, 0, -3, 2};
+    vector<int> ss = {0, 4, 3, 2, 0, -3, 1, 5, -2, -1, 5};
     view.twoSums(ss, 1);
     view.twoSums(ss, 0);
     view.twoSums(ss, 6);
+
+    view.threeSumsZero(ss);
 
     view.iterEraseDeleteTest();
 

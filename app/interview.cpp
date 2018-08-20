@@ -330,16 +330,74 @@ void cTestInterView::twoSums(vector<int> &dst, int target)
     }
 
     map<int, int> tm;
+    vector<int> ret;
     for(size_t i = 0; i < len; i++)
     {
         int value = target - dst[i];
         if(tm.find(value) != tm.end()) {
             cout << "map -> " << target << endl;
-            cout << tmp[value] << ":" << i << " is find" << endl;
+            cout << tm[value] << ":" << i << " is find" << endl;
+            ret.push_back(tm[value]);
+            ret.push_back(i);
             break;
         }
         //tm.insert(make_pair(dst[i], i));
         tm[dst[i]] = i;
+    }
+}
+
+void cTestInterView::threeSumsZero(vector<int> &dst)
+{
+    show_tips();
+
+    cout << "threeSumsZero" << endl;
+
+    int len = dst.size();
+    if(len < 3) return;
+
+    vector<vector<int> > ivv;
+
+    for_each(dst.cbegin(), dst.cend(), [](const int& val){cout << val << " ";});
+    cout << endl;
+
+    sort(dst.begin(), dst.end());
+    for(int i = 0; i < len - 2; i++)
+    {
+        int j = i+1;
+        int k = len - 1;
+        while(j < k)
+        {
+            if(dst[i] + dst[j] + dst[k] < 0) {
+                j++;
+            }
+            else if(dst[i] + dst[j] + dst[k] > 0) {
+                k--;
+            }
+            else {
+                vector<int> v;
+                v.push_back(dst[i]);
+                v.push_back(dst[j]);
+                v.push_back(dst[k]);
+
+                ivv.push_back(v);
+                if(dst[i] + dst[j+1] + dst[k] == 0) {
+                    j++;
+                }
+                else {
+                    k--;
+                }
+            }
+        }
+    }
+
+    cout << "find the zero items:" << endl;
+    for(auto v1 = ivv.cbegin(); v1 != ivv.cend(); v1++)
+    {
+        for(auto v2 = v1->cbegin(); v2 != v1->cend(); v2++)
+        {
+            cout << *v2 << " ";
+        }
+        cout << endl;
     }
 }
 
