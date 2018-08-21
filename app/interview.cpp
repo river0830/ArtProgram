@@ -18,11 +18,12 @@
 #include <string.h>
 #include <map>
 #include <hash_map>
+#include <unordered_map>
 
 #include "interview.h"
 
 using namespace std;
-using namespace __gnu_cxx;
+//using namespace __gnu_cxx;
 //=============================================================================
 //KMP ¥Æ∆•≈‰
 int cTestInterView::bruteforce_str(string &dst, string &src)
@@ -315,7 +316,7 @@ void cTestInterView::twoSums(vector<int> &dst, int target)
     for(auto val:dst) cout << val << " ";
     cout << endl;
 
-    hash_map<int,int> tmp;
+    __gnu_cxx::hash_map<int,int> tmp;
 
     size_t len = dst.size();
     for(size_t i = 0; i < len; i++)
@@ -343,6 +344,22 @@ void cTestInterView::twoSums(vector<int> &dst, int target)
         }
         //tm.insert(make_pair(dst[i], i));
         tm[dst[i]] = i;
+    }
+
+    unordered_map<int, int> tmo;
+    vector<int> reto;
+    for(size_t i = 0; i < len; i++)
+    {
+        int value = target - dst[i];
+        if(tmo.find(value) != tmo.end()) {
+            cout << "unordered map -> " << target << endl;
+            cout << tmo[value] << ":" << i << " is find" << endl;
+            reto.push_back(tm[value]);
+            reto.push_back(i);
+            break;
+        }
+        //tm.insert(make_pair(dst[i], i));
+        tmo[dst[i]] = i;
     }
 }
 
@@ -374,8 +391,17 @@ void cTestInterView::threeSumsZero(vector<int> &dst, int flag)
 
     for(int i = 0; i < len - 2; i++)
     {
+        //obvious break;
+        if(dst[i] > 0) break;
+
+        //skip head repeat item
+        if(flag == 0) {
+            if(i > 0 && dst[i-1] == dst[i]) continue;
+        }
+
         int j = i+1;
         int k = len - 1;
+
         while(j < k)
         {
             if(dst[i] + dst[j] + dst[k] < 0) {
@@ -385,12 +411,7 @@ void cTestInterView::threeSumsZero(vector<int> &dst, int flag)
                 k--;
             }
             else {
-                vector<int> v;
-                v.push_back(dst[i]);
-                v.push_back(dst[j]);
-                v.push_back(dst[k]);
-
-                ivv.push_back(v);
+                ivv.push_back({dst[i], dst[j], dst[k]});
                 if(flag == 1) {
                     if(dst[i] + dst[j+1] + dst[k] == 0) {
                         j++;
@@ -410,11 +431,6 @@ void cTestInterView::threeSumsZero(vector<int> &dst, int flag)
                     k--;
                 }
             }
-        }
-
-        //skip head repeat item
-        if(flag == 0) {
-            while(i < len - 1 && dst[i] == dst[i+1]) i++;
         }
     }
 
