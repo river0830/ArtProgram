@@ -346,7 +346,7 @@ void cTestInterView::twoSums(vector<int> &dst, int target)
     }
 }
 
-void cTestInterView::threeSumsZero(vector<int> &dst)
+void cTestInterView::threeSumsZero(vector<int> &dst, int flag)
 {
     show_tips();
 
@@ -357,10 +357,21 @@ void cTestInterView::threeSumsZero(vector<int> &dst)
 
     vector<vector<int> > ivv;
 
+    cout << "source dst" << endl;
     for_each(dst.cbegin(), dst.cend(), [](const int& val){cout << val << " ";});
     cout << endl;
 
     sort(dst.begin(), dst.end());
+#if 0
+    if(flag == 0) {
+        dst.erase(unique(dst.begin(), dst.end()), dst.end());
+        len = dst.size();
+    }
+#endif
+    cout << "source sort dst" << endl;
+    for_each(dst.cbegin(), dst.cend(), [](const int& val){cout << val << " ";});
+    cout << endl;
+
     for(int i = 0; i < len - 2; i++)
     {
         int j = i+1;
@@ -380,13 +391,30 @@ void cTestInterView::threeSumsZero(vector<int> &dst)
                 v.push_back(dst[k]);
 
                 ivv.push_back(v);
-                if(dst[i] + dst[j+1] + dst[k] == 0) {
-                    j++;
+                if(flag == 1) {
+                    if(dst[i] + dst[j+1] + dst[k] == 0) {
+                        j++;
+                    }
+                    else {
+                        k--;
+                    }
                 }
                 else {
+                    //skip tail repeat item
+                    while(j < k && dst[k - 1] == dst[k])
+                        k--;
+                    //skip middle repeat item
+                    while(j < k && dst[j] == dst[j+1])
+                        j++;
+                    j++;
                     k--;
                 }
             }
+        }
+
+        //skip head repeat item
+        if(flag == 0) {
+            while(i < len - 1 && dst[i] == dst[i+1]) i++;
         }
     }
 
