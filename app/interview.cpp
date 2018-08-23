@@ -445,6 +445,51 @@ void cTestInterView::threeSumsZero(vector<int> &dst, int flag)
     }
 }
 
+void cTestInterView::threeSumClosest(std::vector<int> &dst, int target)
+{
+    show_tips();
+
+    cout << "three sum for closest, target is " << target << endl;
+    for_each(dst.cbegin(), dst.cend(), [](const int val){cout << val << " ";});
+    cout << endl;
+
+    int len = dst.size();
+    if(len < 3) return;
+
+    std::sort(dst.begin(), dst.end());
+    int diff = std::numeric_limits<int>::max();
+    int min_sum = 0;
+    for(int i = 0; i < len - 2; i++)
+    {
+        int j = i+1;
+        int k = len - 1;
+        while(j < k)
+        {
+            int tmp_sum = dst[i] + dst[j] + dst[k];
+            int tmp_diff = std::abs(tmp_sum - target);
+
+            if(tmp_diff < diff) {
+                diff = tmp_diff;
+                min_sum = tmp_sum;
+            }
+
+            if(tmp_sum > target) {
+                k--;
+            }
+            else if(tmp_sum < target) {
+                j++;
+            }
+            else {
+                cout << "close sum is zero diff: " << tmp_sum << endl;
+                return tmp_sum;
+            }
+        }
+    }
+
+    cout << "close sum is diff: " << min_sum << endl;
+    return min_sum;
+}
+
 void cTestInterView::iterEraseDeleteTest()
 {
     show_tips();

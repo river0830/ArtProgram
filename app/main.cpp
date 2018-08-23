@@ -97,6 +97,12 @@ static void test_interview()
     view.threeSumsZero(ss);
     view.threeSumsZero(ss, 0);
 
+    vector<int> ss1 = {1, 1, 1, 0};
+    view.threeSumClosest(ss1, -100);
+
+    vector<int> ss2 = {-1, 2, 1, -4};
+    view.threeSumClosest(ss2, 1);
+
     view.iterEraseDeleteTest();
 
     cout << "****************test interview end******************" << endl;

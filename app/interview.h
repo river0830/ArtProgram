@@ -18,6 +18,7 @@ public:
     void fast_mod(unsigned int x, unsigned int n, unsigned int m);
     void twoSums(std::vector<int> &dst, int target);
     void threeSumsZero(std::vector<int> &dst, int  flag = 1);
+    void threeSumClosest(std::vector<int> &dst, int target);
     void iterEraseDeleteTest();
 
 private:
