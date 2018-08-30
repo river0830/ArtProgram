@@ -21,6 +21,10 @@ public:
     void threeSumClosest(std::vector<int> &dst, int target);
     void iterEraseDeleteTest();
 
+    void continueSum(unsigned int num);
+    void continueSum1(int num);
+    void continueSum2(int num);
+
 private:
     void kmp_get_next(const std::string &str, std::vector<int> &next);
 

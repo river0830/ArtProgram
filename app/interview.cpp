@@ -13,6 +13,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <cmath>
 
 #include <stdio.h>
 #include <string.h>
@@ -539,6 +540,142 @@ void cTestInterView::iterEraseDeleteTest()
     for(auto &v : tmp)
         cout << v.first << " ";
     cout << endl;
+}
+
+void cTestInterView::continueSum(unsigned int num)
+{
+    show_tips();
+
+    cout << "arithmetic progression continueSum:" << endl;
+
+    //arithmetic progression
+    //sum(m, n) = (m+n)(n-m+1)/2
+    if(num <= 2 || !(num & (num-1))) {
+        cout << "only 1 progression" << endl;
+        return;
+    }
+
+    int count = 0;
+    unsigned int len = (num + 1) / 2;
+    for(unsigned int i = 1; i < len; i++)
+    {
+        unsigned int j = i+1;
+        while(j <= len)
+        {
+            unsigned int sums = (j+i)*(j-i+1)/2;
+            if(sums < num) {
+                j++;
+            }
+            else if(sums == num) {
+                count++;
+                cout << "find " << i << " to " << j << " progression" << endl;
+                break;
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+    cout << "find " << count + 1 << " progression" << endl;
+}
+
+void cTestInterView::continueSum1(int num)
+{
+    show_tips();
+
+    cout << "arithmetic progression continueSum1:" << endl;
+
+    //arithmetic progression
+    //sum(m, n) = (m+n)(n-m+1)/2
+    if(num <= 2 || !(num & (num-1))) {
+        cout << "only 1 progression" << endl;
+        return;
+    }
+
+    int count = 0;
+    int len = (num + 1) / 2;
+    int start = 1, end = 2;
+    int sums = 1;
+    while(start <= len) {
+        //find progression, discart start
+        if(sums == num) {
+            count++;
+            cout << "find " << start << " to " << end - 1 << " progression" << endl;
+            sums -= start;
+            start++;
+        }
+        //less than num, move end
+        else if(sums < num) {
+            sums += end;
+            end++;
+        }
+        //greater than num, move start
+        else {
+            sums -= start;
+            start++;
+        }
+    }
+
+    cout << "find " << count + 1 << " progression" << endl;
+}
+
+void cTestInterView::continueSum2(int num)
+{
+    show_tips();
+
+    cout << "arithmetic progression continueSum2:" << endl;
+
+    //arithmetic progression
+    //sum(m, n) = (m+n)(n-m+1)/2
+    if(num <= 2 || !(num & (num-1))) {
+        cout << "only 1 progression" << endl;
+        return;
+    }
+
+    int count = 0;
+    if(num < 1) {
+        //sum[i:j] =  (i+j)*(j-i+1)/2
+        //         => j^2+j+(i-i^2-2n)=0
+        //         => (j+1/2)^2 = (1-4(i-i^2-2n))/4
+        //         => j = (sqrt(1-4i+4i^2+8n) - 1)/2
+        int len = (num + 1) / 2;
+        int i = 1;
+        while(i <= len) {
+            long long t = 4*(i*i-i)+8*num+1;
+            double j = sqrt(t);
+
+            int fj = j;
+            //find progression
+            if(fj == j) {
+                count++;
+                cout << "find " << i << " to " << (fj - 1)/2 << " progression" << endl;
+            }
+            i++;
+        }
+    }
+    else {
+        //sum[i:j] => (i+j)*(j-i+1) = 2*N
+        //         => i+j = m => m*m <= 2*N
+        //         => m * (2*j - m + 1) = 2*N
+        //         => j = (2*N/m + m - 1) / 2
+        for (int m = 2; m * m <= 2 * num; m++)
+        {
+            if ((2 * num) % m == 0) //m = i+j
+            {
+                double jj = ((2.0 * num)/m+m-1)/2.0;
+                double ii = m - jj;
+
+                //ii maybe less than 0
+                if(ii < jj && (int)ii == ii && (int)jj == jj && (ii+jj)*(jj-ii+1) == 2 * num)//大于1个元素再输出
+                {
+                    count++;
+                    cout << "find " << (int)ii << " to " << (int)jj << " progression" << endl;
+                }
+            }
+        }
+    }
+    cout << "find " << count + 1 << " progression" << endl;
 }
 
 void cTestInterView::show_tips()

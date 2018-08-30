@@ -104,7 +104,13 @@ static void test_interview()
     view.threeSumClosest(ss2, 1);
 
     view.iterEraseDeleteTest();
-
+    view.continueSum(72316829);
+    view.continueSum1(333764327);
+    view.continueSum1(5);
+    view.continueSum1(15);
+    view.continueSum2(333764327);
+    view.continueSum2(5);
+    view.continueSum2(15);
     cout << "****************test interview end******************" << endl;
 }
 
