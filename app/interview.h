@@ -7,6 +7,7 @@
 class cTestInterView
 {
 public:
+    void find_prime(unsigned int mx = 1000);
     void equation_transfer(int num);
     void delete_repeat_num(void);
     void delete_appoint_character(char *str, char c);

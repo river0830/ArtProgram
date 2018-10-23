@@ -68,6 +68,9 @@ static void test_interview()
 
     cout << "****************test interview start******************" << endl;
 
+    view.find_prime(5);
+    view.find_prime(1009);
+
     view.equation_transfer(5);
     view.delete_repeat_num();
 

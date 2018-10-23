@@ -25,6 +25,41 @@
 
 using namespace std;
 //using namespace __gnu_cxx;
+
+void cTestInterView::find_prime(unsigned int mx)
+{
+    show_tips();
+
+    if(mx < 2) return;
+
+    vector<unsigned char> num(mx+1, 1);
+
+    num[0] = num[1] = 0;
+    for(int i = 2; i * i <= mx; i++)
+    {
+        if(num[i] == 0) continue;
+        for(int j=i+i; j <= mx; j += i)
+            num[j] = 0;
+    }
+
+    cout << "the " << mx << " prime is:" << endl;
+    int i = 0, j = 0;
+    for(auto iter = num.begin(); iter != num.end(); ++iter)
+    {
+        if(*iter == 1) {
+            cout << i << " ";
+            j++;
+            if(j % 20 == 0) {
+                cout << endl;
+            }
+
+        }
+        i++;
+    }
+    cout << endl;
+    cout << "all " << j << " prime fined" << endl;
+}
+
 //=============================================================================
 //KMP ´®Æ¥Åä
 int cTestInterView::bruteforce_str(string &dst, string &src)
