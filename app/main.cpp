@@ -295,11 +295,13 @@ void Twa(unsigned short chrome)
 
     static unsigned int s_stelTemp = 0;//计算每分钟浓度和的临时寄存器
     static unsigned int s_stelCounter = 0;//计算STEL记数器
-    static unsigned short s_stelValue[STEL_NUM] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40,40, 40, 40, 40, 40};//STEL计算使用的寄存器
+    static unsigned short s_stelValue[STEL_NUM] = {1000, 1000, 40, 40, 40, 40, 40, 40, 40, 40,40, 40, 40, 40, 40};//STEL计算使用的寄存器
     static unsigned int s_twaTime = 0; //TWA15分钟到计数器
     static unsigned int s_twaTemp = 0; //8小时内每15分钟加权平均浓度和
 
-    unsigned short stelChroma, twaChroma;
+    static unsigned int col = 0;
+
+    static unsigned short stelChroma = 0, twaChroma = 0;
 
     unsigned int iLoop = 0;
     unsigned int longTemp = 0;
@@ -339,7 +341,15 @@ void Twa(unsigned short chrome)
         stelChroma = ((longTemp + (STEL_NUM / 2)) / STEL_NUM);
 
         //量程限制
-        cout << "s:"<<  stelChroma << " ";
+        //cout << "s:"<<  stelChroma << " ";
+#if 1
+        cout << stelChroma << " ";
+
+        if(++col >= 12) {
+            col = 0;
+            cout << endl;
+        }
+#endif
     }
 
     //计算twa浓度(15分钟记录一次)
@@ -349,7 +359,13 @@ void Twa(unsigned short chrome)
         //计算新TWA，放大10倍
         s_twaTemp = s_twaTemp / TWA_SAMPLING;
         twaChroma = (s_twaTemp / 10);
-        cout << "t:" << twaChroma << " " ;
+#if 0
+        cout << twaChroma << " " ;
+        if(++col >= 12) {
+            col = 0;
+            cout << endl;
+        }
+#endif
     }
 }
 
@@ -412,10 +428,16 @@ int main()
 
     for(int i = 0; i < 60*15; i++)
         Twa(0);
-    cout << endl;
-    for(int i = 0; i < 120; i++)
+    cout << "inited" << endl;
+    for(int i = 0; i < 60; i++)
+        Twa(i*15);
+    cout << "i*15 plus inited" << endl;
+    for(int i = 0; i < 30; i++)
         Twa(1000);
-    cout << endl;
+    cout << "1000 inited" << endl;
+    for(int i = 30; i > 0; i--)
+        Twa(i*15);
+    cout << "i*15 decrease inited" << endl;
     for(int i = 0; i < 60*20; i++)
         Twa(0);
     cout << endl;
