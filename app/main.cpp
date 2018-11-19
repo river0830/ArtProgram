@@ -287,6 +287,71 @@ void test_ringqueue(void)
 
 }
 
+void Twa(unsigned short chrome)
+{
+    #define STEL_SAMPLING    60		//每分钟STEL采样次数
+    #define STEL_NUM         15		//计算STEL的缓冲区个数
+    #define TWA_SAMPLING     32		//每8小时采样多少个STEL值
+
+    static unsigned int s_stelTemp = 0;//计算每分钟浓度和的临时寄存器
+    static unsigned int s_stelCounter = 0;//计算STEL记数器
+    static unsigned short s_stelValue[STEL_NUM] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40,40, 40, 40, 40, 40};//STEL计算使用的寄存器
+    static unsigned int s_twaTime = 0; //TWA15分钟到计数器
+    static unsigned int s_twaTemp = 0; //8小时内每15分钟加权平均浓度和
+
+    unsigned short stelChroma, twaChroma;
+
+    unsigned int iLoop = 0;
+    unsigned int longTemp = 0;
+
+    //累加当前浓度和
+    s_stelTemp += chrome;
+    s_stelCounter++;
+    if(s_stelCounter >= STEL_SAMPLING){//到1分钟时间
+        //向低地址移位一位存储STEL缓冲区
+        for(iLoop = 0; iLoop < (STEL_NUM - 1); iLoop++){
+            s_stelValue[iLoop] = s_stelValue[iLoop + 1];
+        }
+
+        //将最新分钟浓度加权平均放入缓冲区
+        s_stelValue[STEL_NUM - 1] = (s_stelTemp + STEL_SAMPLING / 2) / STEL_SAMPLING;
+
+        //清空STEL缓冲区
+        s_stelTemp = 0;
+        s_stelCounter = 0;
+        s_twaTime++;	// 1分钟计数
+    }
+
+    if((s_stelCounter % 5) == 0){//每5秒计算一次STEL浓度
+        longTemp = 0;
+        //累加最新的14个缓冲区加权平均浓度
+        for(iLoop = (STEL_NUM - 1); iLoop > 0; iLoop--){
+            longTemp += s_stelValue[iLoop];
+        }
+
+        //再累加最旧加权平均浓度的(STEL_SAMPLING-s_stelCounter)/STEL_SAMPLING
+        longTemp += (s_stelValue[0] * (STEL_SAMPLING - s_stelCounter)) / STEL_SAMPLING;
+
+        //再累加最新加权平均浓度的相当于s_stelCounter/STEL_SAMPLING倍
+        longTemp += s_stelTemp / STEL_SAMPLING;
+
+        //平均则得到STEL
+        stelChroma = ((longTemp + (STEL_NUM / 2)) / STEL_NUM);
+
+        //量程限制
+        cout << "s:"<<  stelChroma << " ";
+    }
+
+    //计算twa浓度(15分钟记录一次)
+    if(s_twaTime >= 15) {
+        //上次累加和的(TWA_SAMPLING-1)/TWA_SAMPLING) 再加上本次STEL值
+        s_twaTemp = s_twaTemp * (TWA_SAMPLING -1) + 10 * stelChroma;
+        //计算新TWA，放大10倍
+        s_twaTemp = s_twaTemp / TWA_SAMPLING;
+        twaChroma = (s_twaTemp / 10);
+        cout << "t:" << twaChroma << " " ;
+    }
+}
 
 int main()
 {
@@ -344,6 +409,16 @@ int main()
     atomicT1 at;
 
     at.spin_mutex_test();
+
+    for(int i = 0; i < 60*15; i++)
+        Twa(0);
+    cout << endl;
+    for(int i = 0; i < 120; i++)
+        Twa(1000);
+    cout << endl;
+    for(int i = 0; i < 60*20; i++)
+        Twa(0);
+    cout << endl;
 
     return 0;
 }
