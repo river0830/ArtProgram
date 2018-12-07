@@ -34,7 +34,8 @@ SOURCES += ../app/main.cpp \
     ../app/dp_bag.cpp \
     ../app/dt3106_ini.cpp \
     ../app/iniControl.cpp \
-    ../app/atomict1.cpp
+    ../app/atomict1.cpp \
+    ../app/c11template.cpp
 
 HEADERS += ../app/app.h \
     ../app/find_2_appear_once_number.h \
@@ -46,5 +47,6 @@ HEADERS += ../app/app.h \
     ../app/dp_bag.h \
     ../app/dt3106_ini.h \
     ../app/iniControl.h \
-    ../app/atomict1.h
+    ../app/atomict1.h \
+    ../app/c11template.h
 
